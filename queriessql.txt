@@ -1,0 +1,40 @@
+1.
+SELECT COUNT(*) FROM flights;
+
+2.
+SELECT Origin, AVG(ArrDelay), AVG(DepDelay) 
+FROM flights GROUP BY origin;
+
+3.
+SELECT Origin, colYear, colMonth, AVG(ArrDelay) 
+FROM flights 
+GROUP BY origin, colYear, colMonth 
+ORDER BY origin, colYear, colMonth;
+
+4.
+SELECT  usairports.City, flights.colYear, flights.colMonth, AVG(flights.ArrDelay) ' Arrival delay average'
+FROM flights
+INNER JOIN usairports
+ON flights.origin = usairports.iata
+GROUP BY city, colYear, colMonth 
+ORDER BY city, colYear, colMonth;
+
+5.
+SELECT  UniqueCarrier, colYear, colMonth, SUM(Cancelled)
+FROM flights
+GROUP BY colYear, UniqueCarrier, colMonth
+ORDER BY SUM(cancelled) DESC, colMonth, colYear;
+
+6.
+SELECT tailnum, SUM(distance)
+FROM flights
+GROUP BY tailnum
+ORDER BY sum(distance) DESC, tailnum
+LIMIT 10;
+
+7.
+SELECT uniqueCarrier, AVG(ArrDelay) 'avgdelay'
+FROM flights
+GROUP BY uniqueCarrier
+HAVING avgdelay > 10
+ORDER BY avgdelay DESC;
